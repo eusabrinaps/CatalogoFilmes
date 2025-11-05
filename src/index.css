@@ -1,0 +1,8 @@
+/* Base resets and small utilities (index.css) */
+html,body{height:100%;}
+body{margin:0;padding:0;background:transparent}
+
+code,pre{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace}
+
+.text-muted{color:rgba(15,23,42,0.5)}
+
