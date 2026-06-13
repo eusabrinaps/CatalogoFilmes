@@ -1,16 +1,95 @@
-# React + Vite
+# Catálogo de Filmes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação CRUD para gerenciamento de filmes, composta por frontend em React, backend em Node.js/Express e banco de dados PostgreSQL — tudo orquestrado via Docker Compose.
 
-Currently, two official plugins are available:
+## Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend:** React 19, Vite, Bootstrap 5, Axios
+- **Backend:** Node.js, Express
+- **Banco de dados:** PostgreSQL 16
+- **Infraestrutura:** Docker, Docker Compose
 
-## React Compiler
+## Pré-requisitos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [Docker](https://www.docker.com/) instalado e em execução
+- [Docker Compose](https://docs.docker.com/compose/) (já incluso no Docker Desktop)
 
-## Expanding the ESLint configuration
+## Como rodar
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Clone o repositório
+
+```bash
+git clone <url-do-repositorio>
+cd dockerTrojahn
+```
+
+### 2. Configure as variáveis de ambiente
+
+Copie o arquivo de exemplo e ajuste os valores se necessário:
+
+```bash
+cp .env.example .env
+```
+
+O `.env` padrão já funciona sem alterações:
+
+```env
+BACKEND_PORT=3000
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_NAME=catalogofilmes
+VITE_API_URL=http://localhost:3000
+```
+
+### 3. Suba os containers
+
+```bash
+docker compose up --build
+```
+
+Na primeira execução, o Docker irá:
+1. Construir as imagens do frontend e do backend
+2. Subir o banco de dados PostgreSQL
+3. Executar a migration automaticamente (criação da tabela `filmes`)
+4. Iniciar o servidor da API
+5. Servir o frontend via Nginx
+
+### 4. Acesse a aplicação
+
+| Serviço  | Endereço                     |
+|----------|------------------------------|
+| Frontend | http://localhost             |
+| API      | http://localhost:3000        |
+| Health   | http://localhost:3000/health |
+
+## Endpoints da API
+
+| Método | Rota        | Descrição             |
+|--------|-------------|-----------------------|
+| GET    | /filmes     | Lista todos os filmes |
+| GET    | /filmes/:id | Busca filme por ID    |
+| POST   | /filmes     | Cria novo filme       |
+| PUT    | /filmes/:id | Atualiza filme por ID |
+| DELETE | /filmes/:id | Remove filme por ID   |
+
+### Exemplo de payload (POST/PUT)
+
+```json
+{
+  "nome": "O Poderoso Chefão",
+  "genero": "Drama",
+  "ano": 1972
+}
+```
+
+## Parar a aplicação
+
+```bash
+docker compose down
+```
+
+Para remover também o volume do banco de dados:
+
+```bash
+docker compose down -v
+```
