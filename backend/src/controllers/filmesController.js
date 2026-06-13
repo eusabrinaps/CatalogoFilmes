@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 const pool = require('../config/db');
 
 const getAll = async (req, res) => {
@@ -56,4 +57,5 @@ const remove = async (req, res) => {
     }
 };
 
+// eslint-disable-next-line no-undef
 module.exports = { getAll, getById, create, update, remove };

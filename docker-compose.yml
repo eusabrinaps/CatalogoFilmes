@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: catalogo-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - banco-dados:/var/lib/postgresql/data
+    networks:
+      - catalogofilmes
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: catalogo-backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PORT: ${BACKEND_PORT}
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    networks:
+      - catalogofilmes
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: catalogo-frontend
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - catalogofilmes
+    ports:
+      - "80:80"
+
+volumes:
+  banco-dados:
+
+networks:
+  catalogofilmes:
