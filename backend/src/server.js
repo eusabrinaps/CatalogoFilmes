@@ -13,6 +13,8 @@ app.get('/health', (req, res) => {
     res.json({ status: 'ok' });
 });
 
+app.use('/filmes', require('./routes/filmes'));
+
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
