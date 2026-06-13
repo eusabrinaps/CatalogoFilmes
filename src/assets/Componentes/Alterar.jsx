@@ -23,7 +23,7 @@ function Alterar() {
     const handleSubmit = (event) => {
         event.preventDefault();
         axios.put(`${import.meta.env.VITE_API_URL}/filmes/${id}`, values)
-            .then(res => {
+            .then(() => {
                 alert('Filme atualizado com sucesso!');
                 navigate('/');
             })

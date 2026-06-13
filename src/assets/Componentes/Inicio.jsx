@@ -33,9 +33,8 @@ function Inicio() {
         const id = prompt('Digite o ID do filme para apagar:');
         if (!id) return;
         axios.get(`${import.meta.env.VITE_API_URL}/filmes/${id}`)
-            .then(resp => { {
-                    handleDelete(id);
-                }
+            .then(() => {
+                handleDelete(id);
             })
             .catch(() => alert('Filme não encontrado'));
     }
