@@ -20,8 +20,10 @@ services:
       dockerfile: Dockerfile
     container_name: catalogo-backend
     restart: always
+    command: sh -c "node src/config/migrate.js && node src/server.js"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       PORT: ${BACKEND_PORT}
       DB_HOST: db

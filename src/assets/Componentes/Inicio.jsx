@@ -7,7 +7,7 @@ function Inicio() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('${import.meta.env.VITE_API_URL}/filmes')
+        axios.get(`${import.meta.env.VITE_API_URL}/filmes`)
             .then(resp => setFilmes(resp.data))
             .catch(err => console.log(err));
     }, []);
