@@ -8,7 +8,7 @@ function Ler() {
     const { id } = useParams();
 
     useEffect(() => {
-        axios.get(`https://68fb8c4494ec960660267104.mockapi.io/filmes/${id}`)
+        axios.get(`${import.meta.env.VITE_API_URL}/filmes/${id}`)
             .then(res => setData(res.data))
             .catch(err => console.log(err));
     }, [id]);

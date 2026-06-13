@@ -7,13 +7,13 @@ function Inicio() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('https://68fb8c4494ec960660267104.mockapi.io/filmes')
+        axios.get('${import.meta.env.VITE_API_URL}/filmes')
             .then(resp => setFilmes(resp.data))
             .catch(err => console.log(err));
     }, []);
 
     const handleDelete = (id) => {
-        axios.delete(`https://68fb8c4494ec960660267104.mockapi.io/filmes/${id}`)
+        axios.delete(`${import.meta.env.VITE_API_URL}/filmes/${id}`)
             .then(() => setFilmes(prev => prev.filter(f => f.id !== id)))
             .catch(err => {
                 console.error('Erro ao apagar:', err);
@@ -24,7 +24,7 @@ function Inicio() {
     const handleAlterarClick = () => {
         const id = prompt('Digite o ID do filme para alterar:');
         if (!id) return;
-        axios.get(`https://68fb8c4494ec960660267104.mockapi.io/filmes/${id}`)
+        axios.get(`${import.meta.env.VITE_API_URL}/filmes/${id}`)
             .then(() => navigate(`/alterar/${id}`))
             .catch(() => alert('Filme não encontrado'));
     }
@@ -32,7 +32,7 @@ function Inicio() {
     const handleApagarClick = () => {
         const id = prompt('Digite o ID do filme para apagar:');
         if (!id) return;
-        axios.get(`https://68fb8c4494ec960660267104.mockapi.io/filmes/${id}`)
+        axios.get(`${import.meta.env.VITE_API_URL}/filmes/${id}`)
             .then(resp => { {
                     handleDelete(id);
                 }

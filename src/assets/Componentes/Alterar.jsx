@@ -13,7 +13,7 @@ function Alterar() {
     });
     
     useEffect(() => {
-        axios.get(`https://68fb8c4494ec960660267104.mockapi.io/filmes/${id}`)
+        axios.get(`${import.meta.env.VITE_API_URL}/filmes/${id}`)
             .then(res => setValues(res.data))
             .catch(err => console.log(err));
     }, [id]);
@@ -22,7 +22,7 @@ function Alterar() {
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.put(`https://68fb8c4494ec960660267104.mockapi.io/filmes/${id}`, values)
+        axios.put(`${import.meta.env.VITE_API_URL}/filmes/${id}`, values)
             .then(res => {
                 alert('Filme atualizado com sucesso!');
                 navigate('/');

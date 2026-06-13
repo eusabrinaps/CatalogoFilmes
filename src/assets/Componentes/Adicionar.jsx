@@ -13,7 +13,7 @@ function Adicionar() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('https://68fb8c4494ec960660267104.mockapi.io/filmes', values)
+        axios.post('${import.meta.env.VITE_API_URL}/filmes', values)
             .then(resp => {
                 console.log(resp);
                 navigate('/');
