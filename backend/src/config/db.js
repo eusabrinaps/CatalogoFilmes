@@ -9,7 +9,10 @@ const pool = new Pool({
 });
 
 pool.connect()
-    .then(() => console.log('Conectado ao banco de dados'))
+    .then(client => {
+        console.log('Conectado ao banco de dados');
+        client.release();
+    })
     .catch(err => {
         console.error('Erro ao conectar ao banco:', err.message);
         process.exit(1);
